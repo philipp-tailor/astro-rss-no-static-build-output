@@ -2,8 +2,7 @@
 import getPosts from '../utils/getPosts'
 
 export async function getStaticPaths({ paginate }) {
-	const postImports = await Astro.glob('../../content/*.md')
-	const posts = await getPosts(postImports)
+  const posts = await getPosts()
 	return paginate(posts, {
 		pageSize: 3,
 	})
