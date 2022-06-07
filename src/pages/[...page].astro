@@ -1,0 +1,24 @@
+---
+import getPosts from '../utils/getPosts'
+
+export async function getStaticPaths({ paginate }) {
+	const postImports = await Astro.glob('../../content/*.md')
+	const posts = await getPosts(postImports)
+	return paginate(posts, {
+		pageSize: 3,
+	})
+}
+
+const { page } = Astro.props
+const posts = page.data
+---
+
+<ol>
+		{posts.map((post, index) => (
+			<li>
+				<a href={post.frontmatter.slug}>
+					{post.frontmatter.title}
+				</a>
+			</li>
+		))}
+	</ol>
